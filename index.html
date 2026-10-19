@@ -1,0 +1,351 @@
+
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pakistan GK Test</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: lightblue;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    width: 65%;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+/* Main heading centred on every page */
+h2 {
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+input[type="text"] {
+    padding: 8px;
+    margin: 8px;
+    width: 60%;
+    box-sizing: border-box;
+}
+
+/* Questions and MCQ page */
+.quizPage {
+    text-align: left;
+}
+
+.quizPage #questionBox {
+    text-align: left;
+    margin-left: 20px;
+}
+
+.quizPage #optionsBox {
+    text-align: left;
+    margin-left: 35px;
+    margin-top: 15px;
+}
+
+.quizPage label {
+    display: block;
+    margin: 0;
+    padding: 8px 0;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.quizPage input[type="radio"] {
+    width: auto;
+    margin: 0 10px 0 0;
+    padding: 0;
+    vertical-align: middle;
+}
+
+.quizPage button {
+    margin-left: 20px;
+    margin-top: 18px;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    input[type="text"] {
+        width: 90%;
+    }
+
+    .quizPage #questionBox {
+        margin-left: 10px;
+    }
+
+    .quizPage #optionsBox {
+        margin-left: 15px;
+    }
+
+    .quizPage button {
+        margin-left: 10px;
+        padding: 10px 16px;
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="quizBox">
+    <div id="startForm">
+        <h2>Pakistan General Knowledge Test</h2>
+        <input type="text" id="fname" placeholder="First Name"><br>
+        <input type="text" id="lname" placeholder="Last Name"><br>
+        <input type="text" id="userClass" placeholder="Class"><br>
+        <button onclick="startTest()">Start</button>
+    </div>
+</div>
+
+<script>
+
+// ===== USER INFORMATION =====
+
+let firstName = "";
+let lastName = "";
+let userClass = "";
+
+// ===== START TEST =====
+
+function startTest() {
+    firstName = document.getElementById("fname").value.trim();
+    lastName = document.getElementById("lname").value.trim();
+    userClass = document.getElementById("userClass").value.trim();
+
+    if (firstName === "" || lastName === "" || userClass === "") {
+        alert("Please fill all fields!");
+        return;
+    }
+
+    document.getElementById("quizBox").className = "container quizPage";
+
+    document.getElementById("quizBox").innerHTML =
+        '<h2>Pakistan General Knowledge Test</h2>' +
+        '<div id="questionBox"></div>' +
+        '<div id="optionsBox"></div>' +
+        '<button onclick="nextQuestion()" id="nextBtn">Next</button>';
+
+    loadQuestion();
+}
+
+// ===== ALL 50 QUESTIONS =====
+
+const allQuestions = [
+{q:"How many provinces are there in Pakistan?",o:["5","4","7","3","9"],a:1},
+{q:"What is the capital of Pakistan?",o:["Karachi","Lahore","Islamabad","Quetta","Peshawar"],a:2},
+{q:"What is the national language of Pakistan?",o:["Punjabi","Sindhi","Urdu","Pashto","Balochi"],a:2},
+{q:"What is the national animal of Pakistan?",o:["Lion","Tiger","Markhor","Goat","Cow"],a:2},
+{q:"What is the national bird of Pakistan?",o:["Eagle","Peacock","Chukar","Parrot","Sparrow"],a:2},
+{q:"Which city is called City of Lights?",o:["Lahore","Karachi","Islamabad","Quetta","Peshawar"],a:1},
+{q:"Which river is longest in Pakistan?",o:["Jhelum","Chenab","Indus","Ravi","Sutlej"],a:2},
+{q:"What is the national sport of Pakistan?",o:["Cricket","Football","Hockey","Tennis","Kabaddi"],a:2},
+{q:"Pakistan independence year?",o:["1945","1946","1947","1948","1950"],a:2},
+{q:"Founder of Pakistan?",o:["Iqbal","Jinnah","Liaquat","Ayub","Zia"],a:1},
+
+{q:"Full name of Pakistan?",o:["Republic","Islamic Republic of Pakistan","State","Union","Federation"],a:1},
+{q:"First Governor General?",o:["Liaquat","Jinnah","Ayub","Bhutto","Zia"],a:1},
+{q:"First Prime Minister?",o:["Jinnah","Liaquat Ali Khan","Bhutto","Sharif","Zia"],a:1},
+{q:"Lahore Resolution year?",o:["1930","1940","1947","1956","1965"],a:1},
+{q:"First constitution?",o:["1950","1956","1962","1973","1947"],a:1},
+{q:"Largest province?",o:["Punjab","Sindh","KP","Balochistan","GB"],a:3},
+{q:"Largest city?",o:["Lahore","Karachi","Islamabad","Quetta","Multan"],a:1},
+{q:"Highest mountain?",o:["K2","Everest","Nanga Parbat","Rakaposhi","Broad Peak"],a:0},
+{q:"Longest river?",o:["Indus","Jhelum","Chenab","Ravi","Sutlej"],a:0},
+{q:"National flower?",o:["Rose","Tulip","Jasmine","Lotus","Sunflower"],a:2},
+
+{q:"National fruit?",o:["Apple","Banana","Mango","Orange","Grapes"],a:2},
+{q:"National tree?",o:["Neem","Peepal","Deodar","Palm","Banyan"],a:2},
+{q:"National drink?",o:["Milk","Tea","Sugarcane juice","Water","Lassi"],a:2},
+{q:"Pakistan Day?",o:["14 Aug","23 March","6 Sep","9 Nov","1 May"],a:1},
+{q:"Iqbal Day?",o:["9 Nov","25 Dec","14 Aug","23 March","1 Jan"],a:0},
+{q:"Defence Day?",o:["6 Sep","14 Aug","23 March","9 Nov","1 May"],a:0},
+{q:"Currency?",o:["Rupee","Dollar","Euro","Riyal","Taka"],a:0},
+{q:"Official language?",o:["Urdu","English","Punjabi","Sindhi","Pashto"],a:1},
+{q:"Major religion?",o:["Islam","Hinduism","Christianity","Buddhism","Sikhism"],a:0},
+{q:"National anthem?",o:["Qaumi Tarana","Milli Naghma","Pak Song","Anthem","Tune"],a:0},
+
+{q:"Who wrote national anthem?",o:["Iqbal","Hafeez Jalandhari","Faiz","Ghalib","Josh"],a:1},
+{q:"Minar-e-Pakistan located in?",o:["Karachi","Lahore","Islamabad","Multan","Peshawar"],a:1},
+{q:"Badshahi Mosque is in?",o:["Karachi","Lahore","Islamabad","Multan","Quetta"],a:1},
+{q:"Faisal Mosque located in?",o:["Karachi","Islamabad","Lahore","Quetta","Peshawar"],a:1},
+{q:"K2 is located in?",o:["Punjab","Sindh","GB","KP","Balochistan"],a:2},
+{q:"Pakistan shares border with how many countries?",o:["3","4","5","6","7"],a:1},
+{q:"Which desert is in Pakistan?",o:["Sahara","Thar","Arabian","Gobi","Kalahari"],a:1},
+{q:"Largest dam?",o:["Mangla","Tarbela","Warsak","Hub","Diamer"],a:1},
+{q:"Tarbela dam on?",o:["Jhelum","Indus","Chenab","Ravi","Sutlej"],a:1},
+{q:"Mangla dam on?",o:["Jhelum","Indus","Chenab","Ravi","Sutlej"],a:0},
+
+{q:"First President?",o:["Ayub Khan","Iskander Mirza","Zia","Yahya","Bhutto"],a:1},
+{q:"National poet?",o:["Iqbal","Faiz","Ghalib","Meer","Josh"],a:0},
+{q:"Pakistan largest industry?",o:["Textile","Steel","Oil","IT","Food"],a:0},
+{q:"Sea port city?",o:["Karachi","Lahore","Islamabad","Quetta","Multan"],a:0},
+{q:"Pakistan nuclear test year?",o:["1998","1999","2000","1997","1996"],a:0},
+
+{q:"Which sea touches Pakistan?",o:["Arabian Sea","Red Sea","Black Sea","Mediterranean","Caspian"],a:0},
+{q:"Pakistan independence day?",o:["14 Aug","15 Aug","23 March","6 Sep","1 May"],a:0},
+{q:"Faisalabad old name?",o:["Lyallpur","Montgomery","Multan","Hyderabad","Sialkot"],a:0},
+{q:"Murree is a?",o:["Hill station","Desert","City","River","Lake"],a:0},
+{q:"Multan famous for?",o:["Saints","Mountains","Sea","Forest","Industry"],a:0}
+];
+
+// ===== TEST VARIABLES =====
+
+let askedIndexes = [];
+let currentQ;
+let questionCount = 0;
+let score = 0;
+let selected = -1;
+let wrongAnswers = [];
+
+// ===== LOAD QUESTION =====
+
+function loadQuestion() {
+    selected = -1;
+
+    let rand;
+
+    do {
+        rand = Math.floor(Math.random() * allQuestions.length);
+    } while (askedIndexes.includes(rand));
+
+    askedIndexes.push(rand);
+    currentQ = allQuestions[rand];
+    questionCount++;
+
+    document.getElementById("questionBox").innerHTML =
+        "<h3>Q" + questionCount + ". " + currentQ.q + "</h3>";
+
+    let html = "";
+
+    for (let i = 0; i < currentQ.o.length; i++) {
+        html +=
+            '<label>' +
+            '<input type="radio" name="opt" value="' + i +
+            '" onchange="selectOption(' + i + ')">' +
+            currentQ.o[i] +
+            '</label>';
+    }
+
+    document.getElementById("optionsBox").innerHTML = html;
+
+    if (questionCount === 20) {
+        document.getElementById("nextBtn").innerText = "Submit";
+    }
+}
+
+// ===== SELECT OPTION =====
+
+function selectOption(i) {
+    selected = i;
+}
+
+// ===== NEXT QUESTION / SUBMIT =====
+
+function nextQuestion() {
+    if (selected === -1) {
+        alert("Please select an option!");
+        return;
+    }
+
+    if (selected === currentQ.a) {
+        score += 5;
+    } else {
+        wrongAnswers.push({
+            question: currentQ.q,
+            selected: currentQ.o[selected],
+            correct: currentQ.o[currentQ.a]
+        });
+    }
+
+    if (questionCount < 20) {
+        loadQuestion();
+    } else {
+        showResult();
+    }
+}
+
+// ===== RESULT PAGE =====
+
+function showResult() {
+    let percent = score;
+
+    let msg = percent >= 60
+        ? "Congratulations! You passed."
+        : "You failed.";
+
+    document.getElementById("quizBox").className = "container";
+
+    document.getElementById("quizBox").innerHTML =
+        '<h2>Pakistan General Knowledge Test</h2>' +
+        '<h3>Result</h3>' +
+        '<p><b>Name:</b> ' + firstName + ' ' + lastName + '</p>' +
+        '<p><b>Class:</b> ' + userClass + '</p>' +
+        '<h3>Score: ' + score + '/100</h3>' +
+        '<h3>Percentage: ' + percent + '%</h3>' +
+        '<p>' + msg + '</p>' +
+        '<button onclick="showWrong()">Show Wrong Answers</button>' +
+        '<button onclick="location.reload()">Home</button>';
+}
+
+// ===== WRONG ANSWERS PAGE =====
+
+function showWrong() {
+    let html =
+        '<h2>Wrong Answers</h2>' +
+        '<h3>' + firstName + ' ' + lastName +
+        ' (' + userClass + ')</h3>';
+
+    if (wrongAnswers.length === 0) {
+        html += '<p>All answers correct 🎉</p>';
+    } else {
+        wrongAnswers.forEach((w, i) => {
+            html +=
+                '<p><b>Q' + (i + 1) + ':</b> ' +
+                w.question + '</p>' +
+                '<p>Your Answer: ' + w.selected + '</p>' +
+                '<p>Correct Answer: ' + w.correct + '</p><hr>';
+        });
+    }
+
+    html +=
+        '<button onclick="showResult()">Back to Result</button>' +
+        '<button onclick="location.reload()">Home</button>';
+
+    document.getElementById("quizBox").className = "container";
+    document.getElementById("quizBox").innerHTML = html;
+}
+
+</script>
+
+</body>
+</html>
